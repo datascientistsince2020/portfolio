@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improving Lesion Detection in 3D MRI images for Multiple Sclerosis</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!-- custom css link -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Improving Lesion Detection in 3D MRI images for Multiple Sclerosis X INRIA</h1>
+
+    <!-- Introduction Section -->
+    <div class="section">
+      <h2>Introduction</h2>
+      <p>
+        This research focuses on improving lesion detection and segmentation in MRI scans for multiple sclerosis patients using deep learning approaches. The goals were to:
+      </p>
+      <ul>
+        <li>Enhance the performance of an existing UNet-based model</li>
+        <li>Explore if STIR images could improve feature extraction and model performance</li>
+        <li>Implement ensemble methods and fine-tuning to boost accuracy</li>
+      </ul>
+    </div>
+
+    <!-- Dataset and Preprocessing Section -->
+    <div class="section">
+      <h2>Dataset and Preprocessing</h2>
+      <p>The dataset comprised:</p>
+      <ul>
+        <li>255 T2 MRI scans</li>
+        <li>214 STIR MRI scans</li>
+        <li>Corresponding lesion segmentations</li>
+      </ul>
+      <p>Preprocessing steps included:</p>
+      <ol>
+        <li>Cropping images around the spinal cord</li>
+        <li>Finding the center of the spinal cord</li>
+        <li>Shifting the spinal cord to a vertical position</li>
+      </ol>
+    </div>
+
+    <!-- Base Model Section -->
+    <div class="section">
+      <h2>Base Model</h2>
+      <p>
+        The base model used a UNet architecture trained on T2 scans. The best performing base model was trained on 240 T2 images and achieved:
+      </p>
+      <ul>
+        <li>Mean lesion sensitivity: 0.743318</li>
+        <li>Mean lesion precision: 0.697821</li>
+        <li>Mean dice coefficient: 0.495983</li>
+      </ul>
+    </div>
+
+    <!-- Ensemble Method Section -->
+    <div class="section">
+      <h2>Ensemble Method</h2>
+      <p>
+        An ensemble approach was implemented using the probability maps (P-maps) from the base model as input. Various machine learning algorithms were tested, with Neural Networks performing best:
+      </p>
+      <ul>
+        <li>Mean voxel sensitivity: 0.5682</li>
+        <li>Mean voxel precision: 0.753</li>
+        <li>Mean F1 score: 0.5828</li>
+      </ul>
+      <p>
+        The ensemble method showed improvement over the base model, indicating that STIR images provided valuable additional information.
+      </p>
+    </div>
+
+    <!-- Fine-tuning Section -->
+    <div class="section">
+      <h2>Fine-tuning</h2>
+      <p>
+        The base model was fine-tuned to incorporate STIR images:
+      </p>
+      <ol>
+        <li>Modified the first convolutional layer to accept both T2 and STIR inputs</li>
+        <li>Fine-tuned the new layer for 5000 steps</li>
+        <li>Fine-tuned the entire model for another 5000 steps</li>
+      </ol>
+      <p>Results showed improved sensitivity but lower precision compared to the base model:</p>
+      <ul>
+        <li>Mean lesion sensitivity: 0.807045</li>
+        <li>Mean lesion precision: 0.656763</li>
+        <li>Mean dice coefficient: 0.513623</li>
+      </ul>
+    </div>
+
+    <!-- Conclusion Section -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        The ensemble method showed the most promise for improving lesion detection and segmentation. Fine-tuning with STIR images improved sensitivity but at the cost of precision. Further investigation into learning rates and training parameters could potentially yield better results.
+      </p>
+    </div>
+
+    <!-- Go Back Link -->
+    <a href="../index.html" class="back-link">Go Back</a>
+  </div>
+
+  <!-- Link to external JavaScript file -->
+  <script src="../js/script.js"></script>
+  <a href="../../index.html" class="back-link">Go Back</a>
+
+</body>
+</html>

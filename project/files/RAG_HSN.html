@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG-based Q&A for Product Classification</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #ffffff;
+        }
+        .section {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .section:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        .diagram {
+            background-color: #2c2c2c;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+            white-space: pre;
+        }
+        .interactive-demo {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .animated-text {
+            font-size: 1.1em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+        button {
+            background-color: #4a4a4a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5a5a5a;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG-based Q&A System for Product Classification</h1>
+
+        <div class="section">
+            <h2>Introduction</h2>
+            <p>This page demonstrates a Retrieval-Augmented Generation (RAG) based Question-Answering system for product classification. The system combines large language models with a knowledge base of product categories and descriptions to provide accurate and context-aware classification.</p>
+        </div>
+
+        <div class="section">
+            <h2>System Overview</h2>
+            <p>The RAG-based Q&A system for product classification consists of the following main components:</p>
+            <ul>
+                <li>Knowledge Base: A database of product categories, descriptions, and related information</li>
+                <li>Retriever: A component that finds relevant information from the knowledge base</li>
+                <li>Language Model: A large language model (LLM) that generates answers based on the retrieved information</li>
+                <li>User Interface: A front-end for users to input queries and receive answers</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>System Flow</h2>
+            <div class="diagram">
++--------+    +------------+    +-------------+    +---------+
+|  User  | -> |   Query    | -> |  Retriever  | -> |   LLM   |
+| Query  |    | Processing |    | (Knowledge  |    |         |
++--------+    +------------+    |    Base)    |    +---------+
+                                +-------------+         |
+                                      ^                 |
+                                      |                 v
+                                +---------------------+
+                                | Generated Classification |
+                                +---------------------+
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Interactive Demo</h2>
+            <div class="interactive-demo">
+                <div id="productDescription" class="animated-text"></div>
+                <div id="classification" class="animated-text"></div>
+                <div id="explanation" class="animated-text"></div>
+                <button onclick="demonstrateClassification()">Demonstrate Classification</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Benefits of RAG-based Approach</h2>
+            <ul>
+                <li>Improved accuracy by combining up-to-date knowledge with LLM capabilities</li>
+                <li>Ability to provide context-aware classifications and explanations</li>
+                <li>Flexibility to handle a wide range of product types</li>
+                <li>Potential for continuous improvement through user feedback and knowledge base updates</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const examples = [
+            {
+                description: "Wireless Bluetooth earbuds with noise cancellation, 20-hour battery life, and water-resistant design. Includes charging case and multiple ear tip sizes.",
+                classification: "HS Code: 8518.30",
+                explanation: "This product is classified under HS code 8518.30, which covers 'Headphones and earphones, whether or not combined with a microphone, and sets consisting of a microphone and one or more loudspeakers'.\n\nThe classification is based on several key features:\n\n1. The product is described as 'Wireless Bluetooth earbuds', which falls under the category of earphones.\n2. Additional features like 'noise cancellation' and 'water-resistant design' do not affect the basic classification but may influence sub-classifications in some countries.\n3. The 'charging case' is considered an accessory and does not change the primary classification.\n\nThis HS code is part of Chapter 85, which covers 'Electrical machinery and equipment and parts thereof; sound recorders and reproducers, television image and sound recorders and reproducers, and parts and accessories of such articles'."
+            },
+            {
+                description: "Organic, fair-trade dark chocolate bar with 70% cacao content. Made with sustainably sourced cocoa beans and packaged in recyclable materials. 100g bar.",
+                classification: "HS Code: 1806.32",
+                explanation: "This product is classified under HS code 1806.32, which covers 'Chocolate and other food preparations containing cocoa: Other, in blocks, slabs or bars: Not filled'.\n\nThe classification is determined by the following factors:\n\n1. The product is described as a 'chocolate bar', which places it in Chapter 18 (Cocoa and cocoa preparations).\n2. The '70% cacao content' confirms it's a cocoa product and not just a confectionery item.\n3. It's described as a bar, not filled, which specifically places it under subheading 1806.32.\n4. Attributes like 'Organic' and 'fair-trade' do not affect the HS classification but may be relevant for other trade considerations.\n5. The packaging ('recyclable materials') and weight ('100g bar') don't impact the HS code but may be relevant for customs declaration.\n\nThis classification helps in determining applicable tariffs, trade statistics, and ensuring proper handling of the product in international trade."
+            }
+        ];
+    
+        function demonstrateClassification() {
+            const descriptionElement = document.getElementById('productDescription');
+            const classificationElement = document.getElementById('classification');
+            const explanationElement = document.getElementById('explanation');
+            
+            const example = examples[Math.floor(Math.random() * examples.length)];
+    
+            descriptionElement.innerHTML = '';
+            classificationElement.innerHTML = '';
+            explanationElement.innerHTML = '';
+            descriptionElement.style.opacity = '0';
+            classificationElement.style.opacity = '0';
+            explanationElement.style.opacity = '0';
+    
+            function typeWriter(element, text, onComplete) {
+                let index = 0;
+                const interval = setInterval(() => {
+                    if (index < text.length) {
+                        element.innerHTML += text.charAt(index);
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                        element.style.animation = 'fadeIn 0.5s forwards';
+                        if (onComplete) onComplete();
+                    }
+                }, 20);
+            }
+    
+            typeWriter(descriptionElement, "Product Description: " + example.description, () => {
+                setTimeout(() => {
+                    typeWriter(classificationElement, "Classification: " + example.classification, () => {
+                        setTimeout(() => {
+                            typeWriter(explanationElement, "Explanation:\n" + example.explanation);
+                        }, 500);
+                    });
+                }, 500);
+            });
+        }
+    </script>
+        <a href="../../index.html" class="back-link">Go Back</a>
+
+</body>
+
+</html>

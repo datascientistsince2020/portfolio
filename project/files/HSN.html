@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSN Classification using AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            color: #4fd1c5;
+        }
+        #product-display {
+            background-color: #2c3e50;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #product-image {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        #product-info {
+            margin-top: 15px;
+        }
+        button {
+            background-color: #4fd1c5;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45b7aa;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+        }
+        .fade-in-out {
+            animation: fadeInOut 6s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HSN Classification using AI</h1>
+        
+        <h2>Introduction to HSN</h2>
+        <p>The Harmonized System Nomenclature (HSN) is an internationally standardized system of names and numbers for classifying traded products. It is used by customs authorities around the world to identify products when assessing duties and taxes and for gathering statistics.</p>
+        
+        <h2>Importance of Images and Text in HSN Classification</h2>
+        <p>Images and text descriptions play a crucial role in accurate HSN classification:</p>
+        <ul>
+            <li>Images provide visual cues about the product's appearance, materials, and features.</li>
+            <li>Text descriptions offer detailed information about the product's composition, use, and characteristics.</li>
+            <li>Combining both image and text data allows for more accurate and robust classification.</li>
+        </ul>
+        
+        <h2>Demo</h2>
+        <p>Watch as the AI classifies different products using their images and descriptions.</p>
+        
+        <div id="product-display">
+            <img id="product-image" src="https://via.placeholder.com/300" alt="Product Image">
+            <div id="product-info">
+                <h3 id="product-name"></h3>
+                <p id="product-description"></p>
+            </div>
+            <div id="result"></div>
+        </div>
+        
+        <h2>Technologies Used</h2>
+        <ul>
+            <li>Image-to-Text: Convolutional Neural Networks (CNNs) for feature extraction from images</li>
+            <li>Text-to-Text Transfer Learning: BERT-based models fine-tuned on product descriptions</li>
+            <li>Deep Learning: Multi-modal fusion of image and text features for final classification</li>
+            <li>Training Data: Over 13 million labeled samples for robust model performance</li>
+        </ul>
+    </div>
+
+    <script>
+        const products = [
+            {
+                name: "Television",
+                image: "../images/tv.avif",
+                description: "55-inch 4K Ultra HD Smart LED TV with HDR, built-in Wi-Fi, and multiple HDMI ports. Features AI-powered picture optimization and Dolby Atmos sound.",
+                hsCode: "852872"
+            },
+            {
+                name: "Shirt",
+                image: "../images/shirt.jpg",
+                description: "Men's casual button-down shirt made from 100% cotton. Features a spread collar, long sleeves with buttoned cuffs, and a chest pocket. Available in various colors and patterns.",
+                hsCode: "620520"
+            },
+            {
+                name: "Wallet",
+                image: "../images/wallet.webp",
+                description: "Genuine leather bifold wallet with multiple card slots, ID window, and bill compartments. Features RFID blocking technology for enhanced security.",
+                hsCode: "420231"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function updateProduct() {
+            const product = products[currentIndex];
+            document.getElementById('product-image').src = product.image;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-description').textContent = product.description;
+            document.getElementById('result').textContent = `Classifying...`;
+            
+            setTimeout(() => {
+                document.getElementById('result').textContent = `HS Code: ${product.hsCode}`;
+            }, 2000);
+
+            currentIndex = (currentIndex + 1) % products.length;
+        }
+
+        updateProduct();
+        setInterval(updateProduct, 6000);
+
+        // Add fade-in-out class to product display
+        document.getElementById('product-display').classList.add('fade-in-out');
+    </script>
+        <a href="../../index.html" class="back-link">Go Back</a>
+
+</body>
+</html>

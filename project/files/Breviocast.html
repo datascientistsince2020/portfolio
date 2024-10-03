@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breviocast - Podcast Summarization Tool</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 0;
+        }
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .tagline {
+            font-size: 1.5em;
+            opacity: 0.8;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .description {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            animation: slideUp 1.5s ease-in-out;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .feature {
+            width: 300px;
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        .feature h3 {
+            color: #4CAF50;
+        }
+        .feature p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Breviocast x ELTE Hungary</h1>
+            <p class="tagline">Summarize Long Podcasts into Just 5 Minutes content</p>
+        </header>
+
+        <div class="description">
+            <h2>About Breviocast</h2>
+            <p>Breviocast is an innovative tool that transforms lengthy podcasts into concise 5-minute summaries. Utilizing state-of-the-art speech-to-text, summarization, and text-to-speech technologies, Breviocast allows you to grasp the essence of any podcast quickly and efficiently.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>Advanced Speech-to-Text</h3>
+                <p>Our cutting-edge speech recognition technology accurately transcribes podcast audio into text, capturing every crucial detail.</p>
+            </div>
+            
+            <div class="feature">
+                <h3>Intelligent Summarization</h3>
+                <p>Breviocast's AI-powered summarization engine distills hours of content into the most important points, ensuring you don't miss any key insights.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Natural Text-to-Speech</h3>
+                <p>Experience your summarized content through high-quality, natural-sounding voice synthesis, making it easy to listen on-the-go.</p>
+            </div>
+        </div>
+    </div>
+    <a href="../../index.html" class="back-link">Go Back</a>
+
+</body>
+</html>
